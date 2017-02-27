@@ -1,0 +1,1 @@
+document.getElementById("search_subject_info").style.display = "block";
