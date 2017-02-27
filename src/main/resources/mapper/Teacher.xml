@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.intern.school.person.dao.TeacherDao">
+
+	<insert id="addTeacher" parameterType="com.nts.intern.school.person.vo.Teacher">
+		INSERT INTO 
+			teacher(id, name, birth, subject_id) 
+		VALUES(#{id}, #{name}, #{birth}, #{subjectId})	
+	</insert>
+
+	<delete id="deleteTeacher" parameterType="Integer">
+		DELETE FROM teacher
+		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteTeacherBySubject" parameterType="Integer">
+		DELETE FROM teacher
+		WHERE subject_id = #{subjectId}
+	</delete>
+
+	<update id="modifyTeacher" parameterType="com.nts.intern.school.person.vo.Teacher">
+		UPDATE teacher 
+		SET	name = #{name}, birth = #{birth} WHERE id = #{id}
+	</update>
+
+	<select id="searchTeachers" resultType="com.nts.intern.school.person.vo.Teacher">
+		SELECT id, name, birth, subject_id as subjectId 
+		FROM teacher
+	</select>
+
+	<select id="searchTeachersById" resultType="com.nts.intern.school.person.vo.Teacher">
+		SELECT id, name, birth, subject_id as subjectId 
+		FROM teacher
+		WHERE id = #{id}
+	</select>
+
+	<select id="searchTeachersByName" resultType="com.nts.intern.school.person.vo.Teacher">
+		SELECT id, name, birth, subject_id as subjectId 
+		FROM teacher 
+		WHERE name = #{name}
+	</select>
+
+	<select id="isTeacherExistById" resultType="Integer">
+		SELECT id 
+		FROM teacher
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getTeacherCount" resultType="Integer">
+		SELECT COUNT(1) 
+		FROM teacher
+	</select>
+
+</mapper>

@@ -1,0 +1,1 @@
+document.getElementById("search_teacher_info").style.display = "block";

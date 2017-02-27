@@ -1,0 +1,1 @@
+document.getElementById("search_overall_avg_info").style.display = "block";

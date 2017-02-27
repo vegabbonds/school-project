@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.intern.school.person.dao.StaffDao">
+
+	<select id="getStaffCount" resultType="Integer">
+		SELECT COUNT(1) FROM
+		staff
+	</select>
+
+	<insert id="addStaff" parameterType="com.nts.intern.school.person.vo.Staff">
+		INSERT INTO staff(id,
+		name,
+		birth) VALUES(#{id}, #{name}, #{birth})
+	</insert>
+
+	<delete id="deleteStaff" parameterType="Integer">
+		DELETE FROM staff
+		WHERE id = #{id}
+	</delete>
+
+	<update id="modifyStaff" parameterType="com.nts.intern.school.person.vo.Staff">
+		UPDATE staff SET
+		name
+		= #{name}, birth = #{birth} WHERE id = #{id}
+	</update>
+
+	<select id="searchStaffs" resultType="com.nts.intern.school.person.vo.Staff">
+		SELECT * FROM staff
+	</select>
+
+	<select id="searchStaffsById" resultType="com.nts.intern.school.person.vo.Staff">
+		SELECT * FROM staff
+		WHERE id = #{id}
+	</select>
+
+	<select id="searchStaffsByName" resultType="com.nts.intern.school.person.vo.Staff">
+		SELECT * FROM
+		staff WHERE name = #{name}
+	</select>
+
+	<select id="isStaffExistById" resultType="Integer">
+		SELECT id FROM
+		staff
+		WHERE id = #{id}
+	</select>
+
+</mapper>

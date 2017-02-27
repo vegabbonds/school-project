@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.intern.school.person.dao.StudentDao">
+
+	<select id="getStudentCount" resultType="Integer">
+		SELECT COUNT(1) FROM
+		student
+	</select>
+
+	<select id="addStudent" parameterType="com.nts.intern.school.person.vo.Student">
+		INSERT INTO student(id,
+		name,
+		birth) VALUES(#{id}, #{name}, #{birth})
+	</select>
+
+	<select id="deleteStudent" parameterType="Integer">
+		DELETE FROM student
+		WHERE id = #{id}
+	</select>
+
+	<select id="modifyStudent" parameterType="com.nts.intern.school.person.vo.Student">
+		UPDATE student SET
+		name
+		= #{name}, birth = #{birth} WHERE id = #{id}
+	</select>
+
+	<select id="searchStudents" resultType="com.nts.intern.school.person.vo.Student">
+		SELECT * FROM student
+	</select>
+
+	<select id="searchStudentsById" resultType="com.nts.intern.school.person.vo.Student">
+		SELECT * FROM student
+		WHERE id = #{id}
+	</select>
+
+	<select id="searchStudentsByName" resultType="com.nts.intern.school.person.vo.Student">
+		SELECT * FROM
+		student WHERE name = #{name}
+	</select>
+
+	<select id="isStudentExistById" resultType="Integer">
+		SELECT id FROM
+		student
+		WHERE id = #{id}
+	</select>
+
+</mapper>

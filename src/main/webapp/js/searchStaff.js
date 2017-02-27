@@ -1,0 +1,1 @@
+document.getElementById("search_staff_info").style.display = "block";

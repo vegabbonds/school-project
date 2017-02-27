@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.intern.school.score.dao.ScoreDao">	
+
+	<insert id="addScore" parameterType="com.nts.intern.school.score.vo.Score">
+		INSERT INTO score(student_id, subject_id, grade) 
+		VALUES(#{studentId}, #{subjectId}, #{grade})
+	</insert>
+
+	<delete id="deleteScore" parameterType="com.nts.intern.school.score.vo.Score">
+		DELETE 
+		FROM score
+		WHERE student_id = #{studentId} AND subject_id = #{subjectId}
+	</delete>
+
+	<delete id="deleteScoreByStudent" parameterType="Integer">
+		DELETE 
+		FROM score
+		WHERE student_id = #{studentId}
+	</delete>
+	
+	<delete id="deleteScoreBySubject" parameterType="Integer">
+		DELETE 
+		FROM score
+		WHERE subject_id = #{subjectId}
+	</delete>
+
+	<update id="modifyScore" parameterType="com.nts.intern.school.score.vo.Score">
+		UPDATE score 
+		SET grade= #{grade} 
+		WHERE student_id = #{studentId} and subject_id = #{subjectId}
+	</update>
+
+	<select id="searchScores" resultType="com.nts.intern.school.score.vo.StudentScore">
+		SELECT student.id as studentId, student.name as studentName, subject.id as subjectId, subject.name as subjectName, score.grade as grade
+		FROM student student, subject subject, score score
+		WHERE score.student_id = student.id AND score.subject_id = subject.id
+	</select>
+
+	<select id="searchScoresByStudentId" resultType="com.nts.intern.school.score.vo.StudentScore">
+		SELECT student.id as studentId, student.name as studentName, subject.id as subjectId, subject.name as subjectName, score.grade as grade
+		FROM student student, subject subject, score score
+		WHERE score.student_id = student.id AND score.subject_id = subject.id AND student.id = #{studentId}
+	</select>
+
+	<select id="searchAvgScores" resultType="com.nts.intern.school.score.vo.StudentAvgScore">
+		SELECT student.id, student.name, AVG(score.grade) as grade
+		FROM student student, score score
+		WHERE score.student_id = student.id 
+		GROUP BY student.id
+	</select>
+	
+	<select id="searchAvgScoresByStudentId" resultType="com.nts.intern.school.score.vo.StudentAvgScore">
+		SELECT student.id, student.name, AVG(score.grade) as grade
+		FROM student student, score score
+		WHERE score.student_id = student.id 
+		GROUP BY student.id
+		HAVING student.id = #{studentId}
+	</select>
+	
+	<select id="searchOverallAvgScore" resultType="Double">
+		SELECT AVG(a.grade)
+		FROM ( SELECT student.id, student.name, AVG(score.grade) as grade
+		FROM student student, score score
+		WHERE score.student_id = student.id 
+		GROUP BY student.id ) a
+	</select>
+
+	<select id="isScoreExistByStudentId" resultType="Integer">
+		SELECT student_id as studentId
+		FROM score
+		WHERE student_id = #{studentId}
+	</select>
+	
+	<select id="isScoreExistBySubjectId" resultType="Integer">
+		SELECT subject_id as subjectId
+		FROM score
+		WHERE subject_id = #{subjectId}
+	</select>
+
+</mapper>
